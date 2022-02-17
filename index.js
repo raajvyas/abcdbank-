@@ -93,6 +93,5 @@ app.get("/account/all", function (req, res) {
   }).catch(err => res.status(500).send(err));
 });
 
-var port = 3000;
-app.listen(port);
-console.log("Running on port: " + port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`app is running on ${PORT}`));

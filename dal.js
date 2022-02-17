@@ -32,7 +32,6 @@ async function login(email, password) {
   try {
     const user = await db.collection("users").findOne({ email });
     const result = await bcrypt.compare(password, user.password);
-    delete user.password;
     return result ? user : { error: "invalid credentials" };
   } catch (err) {
     console.log("an errr==>>", err);

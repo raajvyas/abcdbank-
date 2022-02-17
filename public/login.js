@@ -41,11 +41,20 @@ function LoginForm(props) {
       });
       const data = await response.json();
       console.log("JSON:", data);
-      setUser(data);
-      localStorage.setItem(
-        "user_details",
-        JSON.stringify({ name: data.name, email: data.email })
-      );
+      if (data.name) {
+        setUser(data);
+        localStorage.setItem(
+          "user_details",
+          JSON.stringify({ name: data.name, email: data.email })
+        );
+      }else if(data.error){
+        alert(data.error);
+        return false;
+      }else{
+        alert("User doesn't exist!");
+        return false;
+      }
+
       props.handleSetLogin();
     } catch (err) {
       props.setStatus(err);

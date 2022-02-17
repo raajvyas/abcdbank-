@@ -34,9 +34,12 @@ function Spa(props) {
             <Route
               path="/createaccount"
               render={(props) => {
-                return (
-                  <CreateAccount handleSetLogin={handleSetLogin} {...props} />
-                );
+                if (isLoggedIn === "logged_out" || !userData) {
+                  return <CreateAccount handleSetLogin={handleSetLogin} {...props} />
+                }else{
+                  return <Redirect to="/" />;
+                }
+                
               }}
             />
             <Route

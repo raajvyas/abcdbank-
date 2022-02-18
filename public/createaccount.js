@@ -40,7 +40,8 @@ function CreateForm(props) {
   const [password, setPassword] = React.useState("");
   const { setUser } = React.useContext(UserContext);
 
-  async function handle() {
+  async function handle(e) {
+    e.preventDefault();
     console.log(name, email, password);
     const url = `/account/create/${name}/${email}/${password}`;
 

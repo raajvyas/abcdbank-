@@ -21,7 +21,7 @@ function CreateAccount(props) {
 
 function CreateMsg(props) {
   return (
-    <>
+    <form>
       <h5>Success</h5>
       <button
         type="submit"
@@ -30,7 +30,7 @@ function CreateMsg(props) {
       >
         Add another account
       </button>
-    </>
+    </form>
   );
 }
 
@@ -64,7 +64,7 @@ function CreateForm(props) {
   }
 
   return (
-    <>
+    <form>
       Name
       <br />
       <input
@@ -98,6 +98,6 @@ function CreateForm(props) {
       <button type="submit" className="btn btn-light" onClick={handle}>
         Create Account
       </button>
-    </>
+    </form>
   );
 }

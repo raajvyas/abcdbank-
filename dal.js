@@ -55,6 +55,7 @@ async function deposit(email, amount) {
 async function withdraw(email, amount) {
   try {
     const user = await db.collection("users").findOneAndUpdate({email}, {$inc: {balance: -amount}}, {new: true})
+    console.log(user);
     return user;
   } catch (err) {
     console.log("an errr==>>", err);

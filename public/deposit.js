@@ -58,9 +58,9 @@ function DepositForm(props) {
       const data = await response.json();
       props.setShow(false);
       if(data.success){
-        props.setDepositRes('Deposit Successful!')
+        props.setDepositRes('Deposit successful!')
       }else{
-        props.setDepositRes('Deposit failed!')
+        props.setDepositRes('Deposit failed! Please try again!')
       }
     } catch (err) {
       props.setStatus(err);

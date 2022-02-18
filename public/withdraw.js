@@ -1,6 +1,7 @@
 function Withdraw(){
     const [show, setShow]     = React.useState(true);
-    const [status, setStatus] = React.useState('');  
+    const [status, setStatus] = React.useState("");  
+    const [withdrawRes, setWithdrawRes] = React.useState("");
   
     return (
       <Card
@@ -8,15 +9,15 @@ function Withdraw(){
         header="Withdraw"
         status={status}
         body={show ? 
-          <WithdrawForm setShow={setShow} setStatus={setStatus}/> :
-          <WithdrawMsg setShow={setShow} setStatus={setStatus}/>}
+          <WithdrawForm setWithdrawRes={setWithdrawRes} setShow={setShow} setStatus={setStatus}/> :
+          <WithdrawMsg withdrawRes={withdrawRes} setShow={setShow} setStatus={setStatus}/>}
       />
     )
   }
   
   function WithdrawMsg(props){
     return(<>
-      <h5>Success</h5>
+      <h5>{props.withdrawRes}</h5>
       <button type="submit" 
         className="btn btn-light" 
         onClick={() => {
@@ -35,16 +36,24 @@ function Withdraw(){
     const handle = async (e)=> {
       e.preventDefault();
       try {
+        if(Number(amount) <= 0) {
+          alert('Withdrawal amount must be greater than 0!');
+          return false;
+        }
         const response = await fetch(`/account/withdraw`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, amount: Number(amount) }),
+        body: JSON.stringify({ email: email.toLowerCase(), amount: Number(amount) }),
       });
         const data = await response.json();
-        console.log("JSON:", data);
         props.setShow(false);
+        if(data.success){
+          props.setWithdrawRes('Withdrawal successful!');
+        }else {
+          props.setWithdrawRes('Withdrawal failed! Please try again!');
+        }
       } catch(err) {
       props.setStatus(err);
       console.log("err:", err);

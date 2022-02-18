@@ -75,8 +75,10 @@ app.put("/account/withdraw", function (req, res) {
   dal
     .withdraw(email, amount)
     .then((user) => {
-      if (user.ok) {
-        res.json({ msg: "withdrawal successful" });
+      if (user.lastErrorObject.updatedExisting) {
+        res.json({ success: true });
+      } else {
+        res.json({ success:false });
       }
     })
     .catch((err) => res.status(500).send(err));

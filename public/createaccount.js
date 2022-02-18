@@ -39,7 +39,6 @@ function CreateForm(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { setUser } = React.useContext(UserContext);
-  const [regErr, setRegErr] = React.useState("");
 
   async function handle() {
     console.log(name, email, password);
@@ -51,7 +50,8 @@ function CreateForm(props) {
 
     if (data.err) {
       props.setShow(true);
-      setRegErr(data.err);
+      alert('Entered email already exists in our system!');
+      return false;
     } else {
       props.setShow(false);
       setUser(data);
@@ -60,7 +60,6 @@ function CreateForm(props) {
         JSON.stringify({ name: data.name, email: data.email })
       );
       props.handleSetLogin();
-      setRegErr("");
     }
   }
 
@@ -99,7 +98,6 @@ function CreateForm(props) {
       <button type="submit" className="btn btn-light" onClick={handle}>
         Create Account
       </button>
-      {regErr && <p>{regErr}</p>}
     </>
   );
 }

@@ -40,7 +40,7 @@ function BalanceMsg(props) {
   return (
     <>
       <h5>Success</h5>
-      <p>{props.balanceRes}</p>
+      <p>$ {props.balanceRes}</p>
       <button
         type="submit"
         className="btn btn-light"
@@ -57,7 +57,6 @@ function BalanceMsg(props) {
 
 function BalanceForm(props) {
   const [email, setEmail] = React.useState("");
-  const [balanceErr, setBalanceErr] = React.useState("");
 
   const handle = async (e) => {
     e.preventDefault();
@@ -74,9 +73,9 @@ function BalanceForm(props) {
       props.getBalanceData(data);
       if (data.balance) {
         props.setShow(false);
-        setBalanceErr("");
       } else {
-        setBalanceErr("Invalid Email!");
+        alert('Invalid Email! Please enter the correct email address to check balance!');
+        return false;
       }
     } catch (err) {
       props.setStatus(err);
@@ -99,7 +98,6 @@ function BalanceForm(props) {
       <button type="submit" className="btn btn-light">
         Check Balance
       </button>
-      {balanceErr && <p>{balanceErr}</p>}
     </form>
   );
 }
